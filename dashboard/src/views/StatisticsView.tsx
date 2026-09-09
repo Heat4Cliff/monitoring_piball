@@ -71,7 +71,7 @@ export const StatisticsView: React.FC<StatisticsViewProps> = ({
       </div>
 
       {/* KPI Stats Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
         <MetricCard
           title="Tingkat Level"
           value={statistics.total_levels}

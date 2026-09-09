@@ -121,7 +121,7 @@ export const DataExplorerView: React.FC<DataExplorerViewProps> = ({
   return (
     <div className="space-y-6">
       {/* Header & View Mode Switcher */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white border border-slate-200/80 rounded-[22px] p-6 shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white border border-slate-200/80 rounded-[22px] p-6 shadow-sm">
         <div>
           <h2 className="text-xl font-extrabold text-slate-900 flex items-center gap-2">
             <Layers className="w-5 h-5 text-blue-600" />
@@ -132,7 +132,7 @@ export const DataExplorerView: React.FC<DataExplorerViewProps> = ({
           </p>
         </div>
 
-        <div className="flex items-center gap-1.5 bg-slate-100 p-1.5 rounded-2xl border border-slate-200">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-1.5 bg-slate-100 p-1.5 rounded-2xl border border-slate-200">
           <button
             onClick={() => setViewMode('observations')}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
@@ -157,7 +157,7 @@ export const DataExplorerView: React.FC<DataExplorerViewProps> = ({
       </div>
 
       {/* Filter Toolbar */}
-      <div className="bg-white border border-slate-200/80 rounded-[22px] p-4 shadow-sm flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
+      <div className="bg-white border border-slate-200/80 rounded-[22px] p-4 shadow-sm flex flex-col lg:flex-row gap-3 items-stretch lg:items-center justify-between">
         <div className="relative flex-1">
           <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
@@ -169,7 +169,7 @@ export const DataExplorerView: React.FC<DataExplorerViewProps> = ({
           />
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <select
             value={selectedObserver}
             onChange={(e) => setSelectedObserver(e.target.value)}

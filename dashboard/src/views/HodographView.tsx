@@ -88,14 +88,14 @@ export const HodographView: React.FC<HodographViewProps> = ({
         </div>
 
         {/* Mode Selector & Controls */}
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-3 w-full lg:w-auto">
           {/* Observation Selector */}
-          <div className="flex items-center gap-1.5 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200 text-xs">
-            <Calendar className="w-3.5 h-3.5 text-blue-600" />
+          <div className="flex items-center gap-1.5 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200 text-xs w-full sm:w-auto">
+            <Calendar className="w-3.5 h-3.5 text-blue-600 shrink-0" />
             <select
               value={selectedObsId}
               onChange={(e) => onSelectObservation(e.target.value)}
-              className="bg-transparent text-slate-800 focus:outline-none cursor-pointer font-semibold"
+              className="bg-transparent text-slate-800 focus:outline-none cursor-pointer font-semibold w-full"
             >
               {analysis_observations.map(obs => (
                 <option key={obs.observation_id} value={obs.observation_id} className="bg-white text-slate-900">
@@ -106,10 +106,10 @@ export const HodographView: React.FC<HodographViewProps> = ({
           </div>
 
           {/* Mode Switcher */}
-          <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs">
+          <div className="flex flex-wrap sm:flex-nowrap items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200 text-[10px] sm:text-xs w-full sm:w-auto">
             <button
               onClick={() => setMode('single')}
-              className={`px-2.5 py-1 rounded-lg font-semibold transition-all ${
+              className={`flex-1 sm:flex-none px-2.5 py-1.5 rounded-lg font-semibold transition-all ${
                 mode === 'single' ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -117,7 +117,7 @@ export const HodographView: React.FC<HodographViewProps> = ({
             </button>
             <button
               onClick={() => setMode('compare')}
-              className={`px-2.5 py-1 rounded-lg font-semibold transition-all ${
+              className={`flex-1 sm:flex-none px-2.5 py-1.5 rounded-lg font-semibold transition-all ${
                 mode === 'compare' ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -125,7 +125,7 @@ export const HodographView: React.FC<HodographViewProps> = ({
             </button>
             <button
               onClick={() => setMode('overlay')}
-              className={`px-2.5 py-1 rounded-lg font-semibold transition-all ${
+              className={`flex-1 sm:flex-none px-2.5 py-1.5 rounded-lg font-semibold transition-all ${
                 mode === 'overlay' ? 'bg-blue-600 text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -133,16 +133,16 @@ export const HodographView: React.FC<HodographViewProps> = ({
             </button>
           </div>
 
-          {/* Secondary Observation (if Compare Mode) */}
+          {/* Additional Compare Dropdown */}
           {mode === 'compare' && (
-            <div className="flex items-center gap-1.5 bg-amber-50 px-3 py-1.5 rounded-xl border border-amber-200 text-xs">
-              <span className="text-amber-700 font-bold">Vs:</span>
+            <div className="flex items-center gap-1.5 bg-rose-50 px-3 py-1.5 rounded-xl border border-rose-200 text-xs w-full sm:w-auto">
+              <span className="font-semibold text-rose-700 shrink-0">Bandingkan dgn:</span>
               <select
                 value={compareObsId}
                 onChange={(e) => setCompareObsId(e.target.value)}
-                className="bg-transparent text-amber-900 focus:outline-none cursor-pointer font-semibold"
+                className="bg-transparent text-rose-800 focus:outline-none cursor-pointer font-bold w-full"
               >
-                {analysis_observations.map(obs => (
+                {analysis_observations.filter(o => o.observation_id !== selectedObsId).map(obs => (
                   <option key={obs.observation_id} value={obs.observation_id} className="bg-white text-slate-900">
                     {obs.date_iso} ({obs.statistics.max_altitude_ft} ft)
                   </option>
@@ -150,14 +150,13 @@ export const HodographView: React.FC<HodographViewProps> = ({
               </select>
             </div>
           )}
-
-          {/* Toggle Side-by-Side Original PDF Chart */}
+          
           <button
             onClick={() => setShowOriginalChart(!showOriginalChart)}
-            className={`px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all flex items-center gap-1.5 ${
-              showOriginalChart
-                ? 'bg-emerald-50 text-emerald-700 border-emerald-300 shadow-xs'
-                : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
+            className={`flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all w-full sm:w-auto ${
+              showOriginalChart 
+                ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100' 
+                : 'bg-slate-100 text-slate-600 border border-slate-200 hover:bg-slate-200'
             }`}
           >
             <Split className="w-3.5 h-3.5" />
@@ -439,14 +438,16 @@ export const HodographView: React.FC<HodographViewProps> = ({
         {showOriginalChart && mode !== 'overlay' && (
           <div className="bg-white border border-slate-200 rounded-[22px] p-6 shadow-sm flex flex-col justify-between">
             <div>
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-2">
-                  <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                  <span className="px-2.5 py-1 rounded-full text-[10px] sm:text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1 w-fit">
                     <ShieldCheck className="w-3.5 h-3.5" /> Gambar Asli Halaman 3 PDF
                   </span>
-                  <span className="text-xs text-slate-500">Verifikasi Visual 1:1</span>
+                  <span className="text-[10px] sm:text-xs text-slate-500 font-medium">Verifikasi Visual 1:1</span>
                 </div>
-                <SourceBadge sourceFile={primaryObs.source_file} sourcePage={3} />
+                <div className="w-fit">
+                  <SourceBadge sourceFile={primaryObs.source_file} sourcePage={3} />
+                </div>
               </div>
 
               <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200 flex items-center justify-center min-h-[420px]">
