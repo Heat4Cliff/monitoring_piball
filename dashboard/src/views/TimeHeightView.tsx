@@ -91,13 +91,13 @@ export const TimeHeightView: React.FC<TimeHeightViewProps> = ({ data, onNavigate
       grid: {
         top: 60,
         bottom: 80,
-        left: 80,
+        left: 60,
         right: 50
       },
       dataZoom: [
-        { type: 'inside', xAxisIndex: 0, zoomOnMouseWheel: true },
+        { type: 'inside', xAxisIndex: 0, zoomOnMouseWheel: true, startValue: dates.length > 10 ? dates.length - 10 : 0, endValue: dates.length - 1 },
         { type: 'slider', xAxisIndex: 0, bottom: 10, height: 25 },
-        { type: 'inside', yAxisIndex: 0, zoomOnMouseWheel: true },
+        { type: 'inside', yAxisIndex: 0, zoomOnMouseWheel: true, startValue: 0, endValue: 30 },
         { type: 'slider', yAxisIndex: 0, right: 10, width: 20 }
       ],
       xAxis: {
@@ -170,34 +170,37 @@ export const TimeHeightView: React.FC<TimeHeightViewProps> = ({ data, onNavigate
         </div>
       </div>
 
-      <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
-          <div className="flex items-center gap-2 bg-slate-100 p-1.5 rounded-xl">
-            <button
-              onClick={() => setMetric('speed')}
-              className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${metric === 'speed' ? 'bg-white shadow-sm text-indigo-700' : 'text-slate-600 hover:text-slate-900'}`}
-            >
-              Kecepatan Angin (Speed)
-            </button>
-            <button
-              onClick={() => setMetric('u')}
-              className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${metric === 'u' ? 'bg-white shadow-sm text-indigo-700' : 'text-slate-600 hover:text-slate-900'}`}
-            >
-              Komponen Zonal (U)
-            </button>
-            <button
-              onClick={() => setMetric('v')}
-              className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${metric === 'v' ? 'bg-white shadow-sm text-indigo-700' : 'text-slate-600 hover:text-slate-900'}`}
-            >
-              Komponen Meridional (V)
-            </button>
-          </div>
-          <div className="text-xs text-slate-500 flex items-center gap-1.5">
-            <Info className="w-4 h-4" /> Resolusi Vertikal: 1000 ft
+        {/* Chart Container */}
+        <div className="bg-white border border-slate-200/80 rounded-[22px] p-4 sm:p-6 shadow-sm mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-2">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-1.5 bg-slate-100 p-1.5 rounded-2xl border border-slate-200">
+              <button
+                onClick={() => setMetric('speed')}
+                className={`px-4 py-2 rounded-lg text-xs font-bold transition-all text-center sm:text-left ${metric === 'speed' ? 'bg-white shadow-sm text-indigo-700' : 'text-slate-600 hover:text-slate-900'}`}
+              >
+                Kecepatan (Knot)
+              </button>
+              <button
+                onClick={() => setMetric('u')}
+                className={`px-4 py-2 rounded-lg text-xs font-bold transition-all text-center sm:text-left ${metric === 'u' ? 'bg-white shadow-sm text-indigo-700' : 'text-slate-600 hover:text-slate-900'}`}
+              >
+                Komponen Zonal (U)
+              </button>
+              <button
+                onClick={() => setMetric('v')}
+                className={`px-4 py-2 rounded-lg text-xs font-bold transition-all text-center sm:text-left ${metric === 'v' ? 'bg-white shadow-sm text-indigo-700' : 'text-slate-600 hover:text-slate-900'}`}
+              >
+                Komponen Meridional (V)
+              </button>
+            </div>
+            <div className="text-[10px] sm:text-xs text-slate-500 flex items-center justify-center sm:justify-start gap-1.5 mt-2 sm:mt-0">
+              <Info className="w-4 h-4 shrink-0" /> Resolusi Vertikal: 1000 ft
+            </div>
           </div>
         </div>
 
-        <div className="h-[450px] lg:h-[600px] w-full">
+        <div className="bg-white border border-slate-200/80 rounded-[22px] p-2 sm:p-6 shadow-sm">
+          <div className="h-[450px] lg:h-[600px] w-full">
           <ReactECharts
             option={option}
             style={{ height: '100%', width: '100%' }}

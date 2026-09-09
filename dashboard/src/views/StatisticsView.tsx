@@ -163,22 +163,23 @@ export const StatisticsView: React.FC<StatisticsViewProps> = ({
         </div>
       )}
 
-      {/* Layer-by-Layer Wind Shear Analysis Table */}
-      <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
-        <div className="p-4 border-b border-slate-200 flex items-center justify-between">
-          <div>
-            <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
-              <Layers className="w-4 h-4 text-blue-600" />
-              Tabel Analisis Wind Shear Antar-Lapisan Ketinggian
-            </h3>
-            <p className="text-xs text-slate-500">
-              Dihitung berdasarkan perbedaan vektor |ΔV| = √((ΔU)² + (ΔV)²) dan dinormalisasi per 1.000 ft.
-            </p>
+      {/* Wind Shear Detailed Table */}
+      <div className="mt-8 mb-6">
+        <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+          <div className="p-4 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                <Layers className="w-4 h-4 text-blue-600 shrink-0" />
+                Tabel Analisis Wind Shear Antar-Lapisan Ketinggian
+              </h3>
+              <p className="text-[10px] sm:text-xs text-slate-500 mt-1">
+                Dihitung berdasarkan perbedaan vektor |ΔV| = √((ΔU)² + (ΔV)²) dan dinormalisasi per 1.000 ft.
+              </p>
+            </div>
+            <span className="text-[10px] sm:text-xs text-slate-500 font-mono font-semibold bg-slate-50 px-2 py-1 rounded-lg border border-slate-200 w-fit">
+              {shear_layers.length} Lapisan Teranalisis
+            </span>
           </div>
-          <span className="text-xs text-slate-500 font-mono font-semibold">
-            {shear_layers.length} Lapisan Teranalisis
-          </span>
-        </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs font-mono">
@@ -238,6 +239,7 @@ export const StatisticsView: React.FC<StatisticsViewProps> = ({
           </table>
         </div>
       </div>
+    </div>
 
       {/* Meteorological Method Reference Box */}
       <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-700 space-y-2">
