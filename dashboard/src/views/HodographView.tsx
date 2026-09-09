@@ -170,7 +170,7 @@ export const HodographView: React.FC<HodographViewProps> = ({
       <div className={`grid grid-cols-1 ${showOriginalChart && mode !== 'overlay' ? 'lg:grid-cols-2' : 'lg:grid-cols-1'} gap-6`}>
         {/* Interactive ECharts Hodograph Container */}
         <div className="bg-white border border-slate-200 rounded-[22px] p-6 shadow-sm flex flex-col items-center relative overflow-hidden">
-          <div className="w-full h-[700px]">
+          <div className="w-full h-[400px] md:h-[550px] lg:h-[700px]">
             <ReactECharts 
               option={(() => {
                 const maxRad = Math.ceil(maxScaleSpeed / 10) * 10;

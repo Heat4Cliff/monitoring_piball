@@ -209,11 +209,11 @@ export const App: React.FC = () => {
               </button>
 
               <div>
-                <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight leading-none">
+                <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight leading-none">
                   {activeTab === 'overview' || activeTab === 'home' ? 'Dashboard' : navItems.find(n => n.id === activeTab)?.label || 'Dashboard'}
                 </h1>
-                <p className="text-xs text-slate-600 font-medium mt-1">
-                  BMKG Pilot Balloon (PiBal) & Upper Air Wind Analytics • Stamet Tunggul Wulung Cilacap
+                <p className="text-[10px] sm:text-xs text-slate-500 font-medium mt-1.5 sm:mt-1 line-clamp-1 sm:line-clamp-none">
+                  BMKG Pilot Balloon (PiBal) & Upper Air Wind Analytics &#8226; Stamet Tunggul Wulung Cilacap
                 </p>
               </div>
             </div>

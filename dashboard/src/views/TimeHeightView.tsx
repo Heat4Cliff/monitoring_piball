@@ -90,10 +90,16 @@ export const TimeHeightView: React.FC<TimeHeightViewProps> = ({ data, onNavigate
       },
       grid: {
         top: 60,
-        bottom: 60,
+        bottom: 80,
         left: 80,
-        right: 40
+        right: 50
       },
+      dataZoom: [
+        { type: 'inside', xAxisIndex: 0, zoomOnMouseWheel: true },
+        { type: 'slider', xAxisIndex: 0, bottom: 10, height: 25 },
+        { type: 'inside', yAxisIndex: 0, zoomOnMouseWheel: true },
+        { type: 'slider', yAxisIndex: 0, right: 10, width: 20 }
+      ],
       xAxis: {
         type: 'category',
         data: dates,
@@ -191,7 +197,7 @@ export const TimeHeightView: React.FC<TimeHeightViewProps> = ({ data, onNavigate
           </div>
         </div>
 
-        <div className="h-[600px] w-full">
+        <div className="h-[450px] lg:h-[600px] w-full">
           <ReactECharts
             option={option}
             style={{ height: '100%', width: '100%' }}
