@@ -8,7 +8,8 @@ import {
   CheckCircle2, 
   Calendar,
   Layers,
-  Compass
+  Compass,
+  Download
 } from 'lucide-react';
 
 interface DataExplorerViewProps {
@@ -92,6 +93,30 @@ export const DataExplorerView: React.FC<DataExplorerViewProps> = ({
       return matchSearch && matchObserver && matchDate;
     });
   }, [allLevels, searchQuery, selectedObserver, selectedDateFilter]);
+
+  const handleExportCSV = () => {
+    let csvContent = "data:text/csv;charset=utf-8,";
+    
+    if (viewMode === 'observations') {
+      csvContent += "Observation_ID,Date,Time,Station,Observer,Termination,File,Levels,Status\n";
+      filteredObservations.forEach(obs => {
+        csvContent += `${obs.observation_id},${obs.metadata.observation_date_iso},${obs.metadata.observation_time},${obs.metadata.station},${obs.metadata.observer},${obs.metadata.termination_reason},${obs.source_file},${obs.levels.length},${obs.quality.status}\n`;
+      });
+    } else {
+      csvContent += "Date,Observer,Level_Idx,Height(ft),Direction(deg),Speed(kt),U(kt),V(kt),Quality,Notes\n";
+      filteredLevels.forEach(lvl => {
+        csvContent += `${lvl.date_iso},${lvl.observer},${lvl.level_index},${lvl.height_ft},${lvl.direction_deg},${lvl.speed_kt},${lvl.calculated_u},${lvl.calculated_v},${lvl.quality_status},${(lvl.validation_notes || '').replace(/,/g, ';')}\n`;
+      });
+    }
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `PiBal_Export_${viewMode}_${new Date().toISOString().split('T')[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <div className="space-y-6">
@@ -179,6 +204,13 @@ export const DataExplorerView: React.FC<DataExplorerViewProps> = ({
               Reset
             </button>
           )}
+
+          <button
+              onClick={handleExportCSV}
+              className="px-3.5 py-2 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-xl transition-all flex items-center gap-2 shadow-sm"
+            >
+              <Download className="w-3.5 h-3.5" /> Ekspor CSV
+            </button>
         </div>
       </div>
 

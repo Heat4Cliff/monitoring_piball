@@ -17,6 +17,8 @@ import { ExportReportView } from './views/ExportReportView';
 import { Visualisasi3DView } from './views/Visualisasi3DView';
 import { WindBarbView } from './views/WindBarbView';
 import { QuizView } from './views/QuizView';
+import { TimeHeightView } from './views/TimeHeightView';
+import { DataUploadView } from './views/DataUploadView';
 
 // Import Icons
 import {
@@ -38,7 +40,10 @@ import {
   Award,
   BookOpen,
   HelpCircle,
-  BrainCircuit
+  BrainCircuit,
+  Map,
+  UploadCloud,
+  Activity
 } from 'lucide-react';
 
 export const App: React.FC = () => {
@@ -72,9 +77,11 @@ export const App: React.FC = () => {
     { id: 'data_pibal', label: 'Data Table', icon: <Database className="w-5 h-5" /> },
     { id: 'statistics', label: 'Monthly Stats', icon: <BarChart3 className="w-5 h-5" /> },
     { id: 'hodograph', label: 'Analisis Hodograph', icon: <Compass className="w-5 h-5" /> },
+    { id: 'time_height', label: 'Kontur Hovmöller', icon: <Map className="w-5 h-5" /> },
     { id: 'visualisasi_3d', label: 'Visualisasi 3D', icon: <Box className="w-5 h-5" /> },
     { id: 'wind_barb', label: 'Bulu Angin WMO', icon: <Wind className="w-5 h-5" /> },
     { id: 'wind_profile', label: 'Profil Vertikal', icon: <Layers className="w-5 h-5" /> },
+    { id: 'upload_data', label: 'Unggah Data Baru', icon: <UploadCloud className="w-5 h-5" /> },
     { id: 'traceability', label: 'Audit Kualitas Data', icon: <ShieldCheck className="w-5 h-5" /> },
     { id: 'interpretation', label: 'Interpretasi Berbasis Bukti', icon: <FileText className="w-5 h-5" /> },
     { id: 'conclusion', label: 'Konklusi Analisis', icon: <Award className="w-5 h-5" /> },
@@ -242,6 +249,19 @@ export const App: React.FC = () => {
               data={data} 
               selectedObsId={selectedObsId}
               onSelectObservation={setSelectedObsId}
+            />
+          )}
+
+          {activeTab === 'time_height' && (
+            <TimeHeightView 
+              data={data}
+              onNavigateTab={setActiveTab}
+            />
+          )}
+
+          {activeTab === 'upload_data' && (
+            <DataUploadView 
+              onNavigateTab={setActiveTab}
             />
           )}
 

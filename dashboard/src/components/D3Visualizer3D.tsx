@@ -903,6 +903,7 @@ export const D3Visualizer3D: React.FC<D3Visualizer3DProps> = ({
                 fill="#f59e0b"
                 fillOpacity={0.25}
                 className="animate-ping"
+                style={{ transformOrigin: 'center', transformBox: 'fill-box' }}
               />
               <circle
                 cx={activeBalloonState.proj.x2d}
