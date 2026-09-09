@@ -105,13 +105,13 @@ export const App: React.FC = () => {
       `}>
         <div>
           {/* Top User Avatar with Notification Dot */}
-          <div className="relative mb-8 flex items-center justify-between">
-            <div className="relative">
-              <div className="w-14 h-14 rounded-full bg-blue-50/90 border border-blue-100 flex items-center justify-center text-blue-600 shadow-xs">
-                <User className="w-7 h-7 stroke-[1.8]" />
+          <div className="relative mb-8 flex items-center justify-between animate-in fade-in slide-in-from-top-4 duration-500">
+            <div className="relative group cursor-pointer">
+              <div className="w-14 h-14 rounded-full bg-blue-50/90 border border-blue-100 flex items-center justify-center text-blue-600 shadow-xs transition-transform duration-300 group-hover:scale-110 group-hover:bg-blue-100">
+                <User className="w-7 h-7 stroke-[1.8] transition-transform duration-300 group-hover:scale-110" />
               </div>
               {/* Blue notification dot */}
-              <span className="absolute top-0.5 right-0.5 w-3.5 h-3.5 bg-blue-600 border-2 border-[#f4f7fe] rounded-full"></span>
+              <span className="absolute top-0.5 right-0.5 w-3.5 h-3.5 bg-blue-600 border-2 border-[#f4f7fe] rounded-full animate-pulse"></span>
             </div>
 
             {/* Mobile close button */}
@@ -124,8 +124,8 @@ export const App: React.FC = () => {
           </div>
 
           {/* Navigation Item List */}
-          <nav className="space-y-1.5">
-            {navItems.map(item => {
+          <nav className="space-y-1.5 overflow-hidden px-1 py-1 -mx-1">
+            {navItems.map((item, index) => {
               // Both 'home' and 'overview' show the main dashboard
               const isActive = (activeTab === item.id) || (item.id === 'home' && activeTab === 'overview') || (item.id === 'overview' && activeTab === 'home');
 
@@ -140,16 +140,26 @@ export const App: React.FC = () => {
                     }
                     setMobileMenuOpen(false);
                   }}
-                  className={`w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl text-sm font-medium transition-all text-left ${
+                  style={{ animationDelay: `${index * 50}ms`, animationFillMode: 'both' }}
+                  className={`group w-full flex items-center gap-3.5 px-4 py-3 rounded-2xl text-sm transition-all duration-300 ease-out text-left animate-in fade-in slide-in-from-left-8 ${
                     isActive
-                      ? 'bg-blue-600 text-white font-semibold shadow-md shadow-blue-500/25'
-                      : 'text-slate-500 hover:text-slate-800 hover:bg-white/80'
+                      ? 'bg-blue-600 text-white font-bold shadow-lg shadow-blue-500/30 translate-x-1'
+                      : 'text-slate-500 font-medium hover:text-blue-700 hover:bg-white hover:shadow-sm hover:translate-x-1'
                   }`}
                 >
-                  <span className={`shrink-0 ${isActive ? 'text-white' : 'text-slate-500'}`}>
+                  <span className={`shrink-0 transition-all duration-300 ease-out ${
+                    isActive 
+                      ? 'text-white scale-110 drop-shadow-md' 
+                      : 'text-slate-400 group-hover:scale-110 group-hover:-translate-y-0.5 group-hover:text-blue-600'
+                  }`}>
                     {item.icon}
                   </span>
                   <span className="truncate">{item.label}</span>
+                  
+                  {/* Subtle active indicator dot */}
+                  {isActive && (
+                    <span className="ml-auto w-1.5 h-1.5 rounded-full bg-white shadow-sm animate-pulse"></span>
+                  )}
                 </button>
               );
             })}
@@ -157,17 +167,17 @@ export const App: React.FC = () => {
         </div>
 
         {/* Bottom Section: Logout and Profile Initial Badge */}
-        <div className="pt-6 border-t border-slate-200/70 flex items-center justify-between">
+        <div className="pt-6 border-t border-slate-200/70 flex items-center justify-between animate-in fade-in slide-in-from-bottom-4 duration-500 delay-300">
           <button 
             onClick={() => setActiveTab('overview')}
-            className="flex items-center gap-2.5 text-slate-500 hover:text-slate-800 text-sm font-medium transition-colors"
+            className="group flex items-center gap-2.5 text-slate-500 hover:text-slate-800 text-sm font-medium transition-all duration-300"
           >
-            <LogOut className="w-4 h-4" />
-            <span>Logout</span>
+            <LogOut className="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-1 group-hover:text-rose-600" />
+            <span className="group-hover:text-rose-600 transition-colors">Logout</span>
           </button>
 
           {/* Circular Initial Avatar Badge 'N' */}
-          <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-sky-600 to-blue-700 text-white font-bold flex items-center justify-center text-xs shadow-xs">
+          <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-sky-600 to-blue-700 text-white font-bold flex items-center justify-center text-xs shadow-xs cursor-pointer transition-transform duration-300 hover:scale-110 hover:shadow-md hover:shadow-blue-500/20">
             N
           </div>
         </div>
