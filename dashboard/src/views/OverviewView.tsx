@@ -191,60 +191,8 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
   }, [observationMap, selectedDay]);
 
   const unitLabel = speedUnit === 'kt' ? 'Knot' : 'km/h';
-
-  // Early Warning System (EWS) Logic for Low-Level Wind Shear (LLWS)
-  const lowLevelShears = useMemo(() => {
-    return activeObs?.shear_layers?.filter(
-      (l: any) => l.bottom_height_ft <= 3000 && l.shear_vector_mag_kt >= 15
-    ) || [];
-  }, [activeObs]);
-  const hasHazardousLLWS = lowLevelShears.length > 0;
-
   return (
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
-      
-      {/* Early Warning System Banner */}
-      <div className={`p-4 rounded-2xl border flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-sm transition-all ${
-        hasHazardousLLWS 
-          ? 'bg-rose-50 border-rose-200' 
-          : 'bg-emerald-50 border-emerald-200'
-      }`}>
-        <div className="flex items-start gap-4">
-          <div className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 shadow-md ${
-            hasHazardousLLWS ? 'bg-rose-600 text-white shadow-rose-500/25' : 'bg-emerald-600 text-white shadow-emerald-500/25'
-          }`}>
-            {hasHazardousLLWS ? <AlertTriangle className="w-6 h-6 animate-pulse" /> : <CheckCircle2 className="w-6 h-6" />}
-          </div>
-          <div>
-            <div className="flex items-center gap-2 mb-1">
-              <span className={`text-xs font-black px-2 py-0.5 rounded-lg border ${
-                hasHazardousLLWS ? 'bg-rose-100 text-rose-700 border-rose-200' : 'bg-emerald-100 text-emerald-700 border-emerald-200'
-              }`}>
-                {hasHazardousLLWS ? 'PERINGATAN DINI LLWS' : 'STATUS PENERBANGAN AMAN'}
-              </span>
-              <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Early Warning System</span>
-            </div>
-            <h3 className={`text-lg font-bold ${hasHazardousLLWS ? 'text-rose-900' : 'text-emerald-900'}`}>
-              {hasHazardousLLWS ? 'Terdeteksi Low-Level Wind Shear (LLWS) Signifikan' : 'Tidak Ditemukan Wind Shear Berbahaya di Elevasi Rendah'}
-            </h3>
-            <p className={`text-sm mt-0.5 ${hasHazardousLLWS ? 'text-rose-700' : 'text-emerald-700'}`}>
-              {hasHazardousLLWS 
-                ? `Terdapat ${lowLevelShears.length} lapisan pergeseran angin dengan magnitudo \u2265 15 kt di bawah 3.000 ft. Ini berpotensi membahayakan fase lepas landas & pendaratan.` 
-                : 'Kondisi pergeseran angin di lapisan bawah (di bawah 3.000 ft) berada pada batas wajar (< 15 kt).'
-              }
-            </p>
-          </div>
-        </div>
-        {hasHazardousLLWS && (
-          <button 
-            onClick={() => onNavigateTab('statistics')}
-            className="shrink-0 px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-sm font-bold shadow-md shadow-rose-500/20 transition-all flex items-center gap-2"
-          >
-            Lihat Detail Shear <ArrowUpRight className="w-4 h-4" />
-          </button>
-        )}
-      </div>
-
     <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start pb-12">
       {/* ========================================================================= */}
       {/* LEFT COLUMN: Main Analytics Charts (Col Span 8)                            */}
