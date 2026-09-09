@@ -11,7 +11,8 @@ import {
   CheckCircle2,
   Calendar as CalendarIcon,
   AlertTriangle,
-  Info
+  Info,
+  MapPin
 } from 'lucide-react';
 import { 
   ResponsiveContainer, 
@@ -717,6 +718,46 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
             </button>
           </div>
         </div>
+
+        {/* 4. Localized Map Widget */}
+        <div className="bg-white rounded-[22px] p-6 shadow-sm border border-slate-200/80 transition-all hover:shadow-md">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-sm font-bold text-slate-900 tracking-tight flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-rose-600" />
+              Lokasi Stasiun PiBal
+            </h3>
+            <span className="px-3 py-0.5 rounded-full text-xs font-extrabold bg-rose-50 text-rose-700 border border-rose-200">
+              WAHL
+            </span>
+          </div>
+          
+          <div className="w-full h-40 rounded-xl overflow-hidden border border-slate-200 mb-3 bg-slate-100 relative group">
+            {/* Overlay to prevent accidental scrolling on map */}
+            <div className="absolute inset-0 z-10 bg-transparent" title="Peta Lokasi Bandara Tunggul Wulung"></div>
+            <iframe 
+              width="100%" 
+              height="100%" 
+              frameBorder="0" 
+              scrolling="no" 
+              marginHeight={0} 
+              marginWidth={0} 
+              src="https://www.openstreetmap.org/export/embed.html?bbox=109.020,-7.655,109.045,-7.630&amp;layer=mapnik&amp;marker=-7.644444,109.032778" 
+              style={{ border: 0 }}
+            ></iframe>
+          </div>
+
+          <div className="text-xs space-y-1.5 mt-4">
+            <div className="flex justify-between items-center text-slate-700">
+              <span className="font-bold">Bandara Tunggul Wulung</span>
+              <span className="font-mono text-[10px] font-bold bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">Cilacap (CXP)</span>
+            </div>
+            <div className="flex justify-between items-center text-slate-500">
+              <span>Titik Pelepasan</span>
+              <span className="font-mono text-[10px] font-bold text-slate-700">7°38'40"S 109°01'58"E</span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
