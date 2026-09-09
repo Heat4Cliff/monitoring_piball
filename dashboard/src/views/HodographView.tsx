@@ -168,10 +168,9 @@ export const HodographView: React.FC<HodographViewProps> = ({
 
       {/* Main Grid: Interactive Hodograph SVG + (Optional) Original PDF Chart */}
       <div className={`grid grid-cols-1 ${showOriginalChart && mode !== 'overlay' ? 'lg:grid-cols-2' : 'lg:grid-cols-1'} gap-6`}>
-        {/* Interactive SVG Hodograph Container */}
         {/* Interactive ECharts Hodograph Container */}
         <div className="bg-white border border-slate-200 rounded-[22px] p-6 shadow-sm flex flex-col items-center relative overflow-hidden">
-          <div className="w-full h-[520px]">
+          <div className="w-full h-[700px]">
             <ReactECharts 
               option={(() => {
                 const maxRad = Math.ceil(maxScaleSpeed / 10) * 10;
@@ -188,7 +187,7 @@ export const HodographView: React.FC<HodographViewProps> = ({
                     top: 0
                   },
                   polar: {
-                    radius: '75%',
+                    radius: '85%',
                     center: ['50%', '50%']
                   },
                   angleAxis: {
@@ -290,10 +289,10 @@ export const HodographView: React.FC<HodographViewProps> = ({
                       type: 'line',
                       coordinateSystem: 'polar',
                       data: obs.hodograph_points.map(toPolarData),
-                      symbolSize: isSelected ? 7 : 4,
+                      symbolSize: isSelected ? 10 : 5,
                       lineStyle: {
                         color: isSelected ? '#38bdf8' : '#cbd5e1',
-                        width: isSelected ? 2.5 : 1
+                        width: isSelected ? 3.5 : 1.5
                       },
                       itemStyle: { opacity: isSelected ? 1 : 0.4 },
                       z: isSelected ? 10 : 1
@@ -305,8 +304,8 @@ export const HodographView: React.FC<HodographViewProps> = ({
                       type: 'line',
                       coordinateSystem: 'polar',
                       data: secondaryObs.hodograph_points.map(toPolarData),
-                      symbolSize: 6,
-                      lineStyle: { color: '#f59e0b', width: 2, type: 'dashed' },
+                      symbolSize: 8,
+                      lineStyle: { color: '#f59e0b', width: 3, type: 'dashed' },
                       itemStyle: { color: '#f59e0b', borderColor: '#78350f', borderWidth: 1.5 },
                       z: 5
                     });
@@ -314,11 +313,12 @@ export const HodographView: React.FC<HodographViewProps> = ({
 
                   if (primaryObs) {
                     option.series.push({
+                      name: 'Primary Hodograph',
                       type: 'line',
                       coordinateSystem: 'polar',
                       data: primaryObs.hodograph_points.map(toPolarData),
-                      symbolSize: (val: any, params: any) => params.dataIndex === 0 ? 9 : 7,
-                      lineStyle: { color: '#0284c7', width: 2.5 },
+                      symbolSize: (val: any, params: any) => params.dataIndex === 0 ? 14 : 10,
+                      lineStyle: { color: '#0284c7', width: 4 },
                       z: 10
                     });
                   }
