@@ -733,7 +733,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           
           <div className="w-full h-40 rounded-xl overflow-hidden border border-slate-200 mb-3 bg-slate-100 relative group">
             {/* Overlay to prevent accidental scrolling on map */}
-            <div className="absolute inset-0 z-10 bg-transparent" title="Peta Lokasi Bandara Tunggul Wulung"></div>
+            <div className="absolute inset-0 z-10 bg-transparent" title="Peta Lokasi Kantor Pusat BMKG Cilacap"></div>
             <iframe 
               width="100%" 
               height="100%" 
@@ -741,19 +741,19 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
               scrolling="no" 
               marginHeight={0} 
               marginWidth={0} 
-              src="https://www.openstreetmap.org/export/embed.html?bbox=109.020,-7.655,109.045,-7.630&amp;layer=mapnik&amp;marker=-7.644444,109.032778" 
+              src="https://www.openstreetmap.org/export/embed.html?bbox=109.006,-7.728,109.026,-7.708&amp;layer=mapnik&amp;marker=-7.7175,109.0163" 
               style={{ border: 0 }}
             ></iframe>
           </div>
 
           <div className="text-xs space-y-1.5 mt-4">
             <div className="flex justify-between items-center text-slate-700">
-              <span className="font-bold">Bandara Tunggul Wulung</span>
-              <span className="font-mono text-[10px] font-bold bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">Cilacap (CXP)</span>
+              <span className="font-bold">Kantor Pusat BMKG Cilacap</span>
+              <span className="font-mono text-[10px] font-bold bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">Cilacap</span>
             </div>
             <div className="flex justify-between items-center text-slate-500">
               <span>Titik Pelepasan</span>
-              <span className="font-mono text-[10px] font-bold text-slate-700">7°38'40"S 109°01'58"E</span>
+              <span className="font-mono text-[10px] font-bold text-slate-700">7°43'03"S 109°00'58"E</span>
             </div>
           </div>
         </div>
