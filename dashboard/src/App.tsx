@@ -19,6 +19,7 @@ import { WindBarbView } from './views/WindBarbView';
 import { QuizView } from './views/QuizView';
 import { TimeHeightView } from './views/TimeHeightView';
 import { DataUploadView } from './views/DataUploadView';
+import { AtlasAwanView } from './views/AtlasAwanView';
 
 // Import Icons
 import {
@@ -43,6 +44,7 @@ import {
   BrainCircuit,
   Map,
   UploadCloud,
+  Cloud,
   Activity
 } from 'lucide-react';
 
@@ -85,6 +87,7 @@ export const App: React.FC = () => {
     { id: 'traceability', label: 'Audit Kualitas Data', icon: <ShieldCheck className="w-5 h-5" /> },
     { id: 'interpretation', label: 'Interpretasi Berbasis Bukti', icon: <FileText className="w-5 h-5" /> },
     { id: 'conclusion', label: 'Konklusi Analisis', icon: <Award className="w-5 h-5" /> },
+    { id: 'atlas_awan', label: 'Buku Atlas Awan', icon: <Cloud className="w-5 h-5" /> },
     { id: 'edu_pibal', label: 'Panduan PiBal', icon: <BookOpen className="w-5 h-5" /> },
     { id: 'edu_hodograph', label: 'Panduan Hodograph', icon: <HelpCircle className="w-5 h-5" /> },
     { id: 'quiz', label: 'Kuis AI', icon: <BrainCircuit className="w-5 h-5" /> },
@@ -313,6 +316,10 @@ export const App: React.FC = () => {
               selectedObsId={selectedObsId}
               onSelectObservation={setSelectedObsId}
             />
+          )}
+
+          {activeTab === 'atlas_awan' && (
+            <AtlasAwanView />
           )}
 
           {activeTab === 'edu_pibal' && (
